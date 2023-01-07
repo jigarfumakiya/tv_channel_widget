@@ -1,19 +1,24 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tv_channel_widget/src/model/tv_channle.dart';
 import 'package:tv_channel_widget/src/utils/utils.dart';
 
+typedef ItemBuilder = Widget Function(BuildContext context, int index);
+typedef ShowBuilder = Widget Function(BuildContext context, ShowItem show);
+
 /// Renders a Channel widget with there shows [BarChartData].
 class ChannelWidget extends StatefulWidget {
   /// [channelShows] determines how the [ShowList] will look like,
   /// It will make sure that all show will in particuler order
-  const ChannelWidget({
+  ChannelWidget({
     Key? key,
     required this.channelShows,
+    required this.headerBuilder,
+    required this.showsBuilder,
     this.showTime = false,
     this.moveToCurrentTime = false,
+    this.headerWidth = 150,
+    this.verticalPadding = 10,
   }) : super(key: key);
 
   /// Determines how the [ChannelWidget] should look.
@@ -27,20 +32,31 @@ class ChannelWidget extends StatefulWidget {
   /// Defaults to false
   final bool moveToCurrentTime;
 
+  /// Determines To width of header.
+  /// Defaults to 150
+  final double headerWidth;
+
+  /// Display a widget for header item
+  final ItemBuilder headerBuilder;
+
+  /// Display a widget for shows item
+  final ShowBuilder showsBuilder;
+
+  final double verticalPadding;
+
   @override
   State<ChannelWidget> createState() => _ChannelWidgetState();
 }
 
 class _ChannelWidgetState extends State<ChannelWidget> {
   final scrollController = ScrollController();
-  GlobalKey scrollControllerKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
+        // widget.headerWidth ??= MediaQuery.of(context).size.width * 0.2;
         if (widget.moveToCurrentTime) {
           moveToCurrentPosition();
         }
@@ -50,101 +66,86 @@ class _ChannelWidgetState extends State<ChannelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-              fit: FlexFit.tight,
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: widget.showTime
-                      ? (widget.channelShows.length + 1)
-                      : widget.channelShows.length,
-                  itemBuilder: (context, index) {
-                    if (index == 0 && widget.showTime) {
-                      return const SizedBox(
-                        height: 20,
-                        width: double.infinity,
-                      );
-                    }
-
-                    return Container(
-                      height: 100,
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      color: Colors.amber,
-                    );
-                  }),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              fit: FlexFit.loose,
-              child: SingleChildScrollView(
-                  controller: scrollController,
-                  physics: const ClampingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (widget.showTime)
-                          SizedBox(
-                            height: 20,
-                            child: Row(
-                              key: scrollControllerKey,
-                              children: getTimerList()
-                                  .map((e) => SizedBox(
-                                        width: getCalculatedWidth(30),
-                                        child: Text(e),
-                                      ))
-                                  .toList(),
-                            ),
-                          ),
-                        ...widget.channelShows.map((channel) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(channel.showItems.length,
-                                  (index) {
-                                final mins = getShowsLengthInMin(
-                                    channel.showItems[index]);
-                                return Container(
-                                  height: 100,
-                                  width: getCalculatedWidth(mins),
-                                  color: Color((math.Random().nextDouble() *
-                                              0xFFFFFF)
-                                          .toInt())
-                                      .withOpacity(1.0),
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 5),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(channel.showItems[index].showName),
-                                      Text(channel
-                                          .showItems[index].showStartTime
-                                          .toString()),
-                                      Text(channel.showItems[index].showEndTime
-                                          .toString()),
-                                    ],
-                                  ),
-                                );
-                              }),
-                            ))
-                      ])),
-            )
-          ],
+        SizedBox(
+          width: widget.headerWidth,
+          child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.showTime
+                  ? (widget.channelShows.length + 1)
+                  : widget.channelShows.length,
+              itemBuilder: (context, index) {
+                if (index == 0 && widget.showTime) {
+                  return const SizedBox(
+                    height: 20,
+                    width: 80,
+                  );
+                }
+                return Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: widget.verticalPadding),
+                  child: widget.headerBuilder(
+                      context, widget.showTime ? (index - 1) : index),
+                );
+              }),
         ),
+        const SizedBox(width: 10),
+        Flexible(
+          fit: FlexFit.loose,
+          child: SingleChildScrollView(
+              controller: scrollController,
+              physics: const ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (widget.showTime)
+                      SizedBox(
+                        height: 20,
+                        child: Row(
+                          children: getTimerList()
+                              .map((e) => SizedBox(
+                                    width: getCalculatedWidth(30),
+                                    child: Text(e),
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                    ...widget.channelShows.map((channel) => Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:
+                              List.generate(channel.showItems.length, (index) {
+                            final mins =
+                                getShowsLengthInMin(channel.showItems[index]);
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: widget.verticalPadding),
+                              child: SizedBox(
+                                  width: getCalculatedWidth(mins),
+                                  child: widget.showsBuilder(
+                                      context, channel.showItems[index])),
+                            );
+                          }),
+                        ))
+                  ])),
+        )
       ],
     );
   }
 
+  /// This function determines the width of show
+  /// Calculated the width per Minute
   double getCalculatedWidth(int showMins) {
     final screenWidget = MediaQuery.of(context).size;
     final restWidth = screenWidget.width * 0.8;
     final perMinWidth = restWidth / 60;
-
-    return perMinWidth * showMins;
+    return (perMinWidth * showMins);
   }
 
+  /// This function finds the show length in minutes
   int getShowsLengthInMin(ShowItem showItem) {
     return Utils.getDateDiffInMin(showItem.showStartTime, showItem.showEndTime);
   }
@@ -160,7 +161,7 @@ class _ChannelWidgetState extends State<ChannelWidget> {
     return timerList;
   }
 
-  /// this function determines the current position of widget
+  /// This function determines the current position of widget
   /// Calculated the width and move to current position
   void moveToCurrentPosition() {
     final leftMin = Utils.getMidNightToNowDiffInMin();
