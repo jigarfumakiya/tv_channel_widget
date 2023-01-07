@@ -252,11 +252,12 @@ class _MyHomePageState extends State<MyHomePage> {
         showTime: true,
         moveToCurrentTime: true,
         verticalPadding: 10,
+        disableHorizontalScroll: true,
         headerBuilder: (context, index) {
           final item = showsList[index];
           return Container(
             width: 100,
-            height: 80,
+            height: 90,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.amber),
             child: Center(child: Text(item.channelName)),
@@ -267,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
-              height: 80,
+              height: 90,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())

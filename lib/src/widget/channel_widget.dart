@@ -10,7 +10,7 @@ typedef ShowBuilder = Widget Function(BuildContext context, ShowItem show);
 class ChannelWidget extends StatefulWidget {
   /// [channelShows] determines how the [ShowList] will look like,
   /// It will make sure that all show will in particuler order
-  ChannelWidget({
+  const ChannelWidget({
     Key? key,
     required this.channelShows,
     required this.headerBuilder,
@@ -19,6 +19,8 @@ class ChannelWidget extends StatefulWidget {
     this.moveToCurrentTime = false,
     this.headerWidth = 150,
     this.verticalPadding = 10,
+    this.timerRowHeight = 20,
+    this.disableHorizontalScroll = false,
   }) : super(key: key);
 
   /// Determines how the [ChannelWidget] should look.
@@ -42,21 +44,29 @@ class ChannelWidget extends StatefulWidget {
   /// Display a widget for shows item
   final ShowBuilder showsBuilder;
 
+  /// Determines vertical padding
   final double verticalPadding;
+
+  /// Determines height for timer row
+  /// Defaults to 20 px
+  final double timerRowHeight;
+
+  /// Determines scroll behavior for horizontal scroll
+  /// Defaults to false
+  final bool disableHorizontalScroll;
 
   @override
   State<ChannelWidget> createState() => _ChannelWidgetState();
 }
 
 class _ChannelWidgetState extends State<ChannelWidget> {
-  final scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        // widget.headerWidth ??= MediaQuery.of(context).size.width * 0.2;
         if (widget.moveToCurrentTime) {
           moveToCurrentPosition();
         }
@@ -79,9 +89,9 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                   : widget.channelShows.length,
               itemBuilder: (context, index) {
                 if (index == 0 && widget.showTime) {
-                  return const SizedBox(
-                    height: 20,
-                    width: 80,
+                  return SizedBox(
+                    height: widget.timerRowHeight,
+                    width: widget.headerWidth,
                   );
                 }
                 return Padding(
@@ -96,24 +106,15 @@ class _ChannelWidgetState extends State<ChannelWidget> {
         Flexible(
           fit: FlexFit.loose,
           child: SingleChildScrollView(
-              controller: scrollController,
-              physics: const ClampingScrollPhysics(),
+              controller: _scrollController,
+              physics: widget.disableHorizontalScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : const ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (widget.showTime)
-                      SizedBox(
-                        height: 20,
-                        child: Row(
-                          children: getTimerList()
-                              .map((e) => SizedBox(
-                                    width: getCalculatedWidth(30),
-                                    child: Text(e),
-                                  ))
-                              .toList(),
-                        ),
-                      ),
+                    if (widget.showTime) buildTimerRow(),
                     ...widget.channelShows.map((channel) => Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:
@@ -133,6 +134,20 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                   ])),
         )
       ],
+    );
+  }
+
+  Widget buildTimerRow() {
+    return SizedBox(
+      height: widget.timerRowHeight,
+      child: Row(
+        children: getTimerList()
+            .map((e) => SizedBox(
+                  width: getCalculatedWidth(30),
+                  child: Text(e),
+                ))
+            .toList(),
+      ),
     );
   }
 
@@ -166,6 +181,6 @@ class _ChannelWidgetState extends State<ChannelWidget> {
   void moveToCurrentPosition() {
     final leftMin = Utils.getMidNightToNowDiffInMin();
     final scrollPosition = getCalculatedWidth(leftMin);
-    scrollController.jumpTo(scrollPosition);
+    _scrollController.jumpTo(scrollPosition);
   }
 }
