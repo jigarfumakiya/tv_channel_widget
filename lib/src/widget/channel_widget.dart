@@ -164,7 +164,9 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                   child: Column(
                 children: [
                   if (widget.showTime) buildTimerRow(),
-                  buildChannelRows(widget.channelShows.first),
+                  ...widget.channelShows
+                      .map((channel) => buildChannelRows(channel))
+                      .toList(growable: false),
                 ],
               ))
             ],
@@ -223,12 +225,13 @@ class _ChannelWidgetState extends State<ChannelWidget> {
   }
 
   List<String> getTimerList() {
+    final timeFormat = DateFormat('HH:mm');
     final timerList = <String>[];
     timerList.add('00:00');
     var todayDate = DateTime(2023, 1, 6, 00, 0);
     for (int i = 0; i < 46; i++) {
       todayDate = todayDate.add(const Duration(minutes: 30));
-      timerList.add(DateFormat('HH:mm').format(todayDate));
+      timerList.add(timeFormat.format(todayDate));
     }
     return timerList;
   }

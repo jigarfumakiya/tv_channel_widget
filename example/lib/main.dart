@@ -109,68 +109,68 @@ class _MyHomePageState extends State<MyHomePage> {
             showStartTime: DateTime(2023, 1, 6, 21, 30),
             showEndTime: DateTime(2023, 1, 6, 23, 59)),
       ]),
-      // TvChannel(channelName: 'Discovery+', showItems: [
-      //   ShowItem(
-      //       showName: 'Gold Rush',
-      //       showStartTime: DateTime(2023, 1, 6, 00, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 1, 0)),
-      //   ShowItem(
-      //       showName: 'Food Factory',
-      //       showStartTime: DateTime(2023, 1, 6, 1, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 1, 30)),
-      //   ShowItem(
-      //       showName: 'Miso Huge',
-      //       showStartTime: DateTime(2023, 1, 6, 1, 30),
-      //       showEndTime: DateTime(2023, 1, 6, 2, 30)),
-      //   ShowItem(
-      //       showName: 'Race of Life',
-      //       showStartTime: DateTime(2023, 1, 6, 2, 30),
-      //       showEndTime: DateTime(2023, 1, 6, 3, 0)),
-      //   ShowItem(
-      //       showName: 'Impossible',
-      //       showStartTime: DateTime(2023, 1, 6, 3, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 5, 0)),
-      //   ShowItem(
-      //       showName: 'BPL',
-      //       showStartTime: DateTime(2023, 1, 6, 5, 30),
-      //       showEndTime: DateTime(2023, 1, 6, 7, 0)),
-      //   ShowItem(
-      //       showName: 'Contact',
-      //       showStartTime: DateTime(2023, 1, 6, 7, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 9, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie',
-      //       showStartTime: DateTime(2023, 1, 6, 9, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 12, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie',
-      //       showStartTime: DateTime(2023, 1, 6, 12, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 13, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Two',
-      //       showStartTime: DateTime(2023, 1, 6, 13, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 15, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Three',
-      //       showStartTime: DateTime(2023, 1, 6, 15, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 18, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Three',
-      //       showStartTime: DateTime(2023, 1, 6, 18, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 19, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Three',
-      //       showStartTime: DateTime(2023, 1, 6, 19, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 21, 0)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Three',
-      //       showStartTime: DateTime(2023, 1, 6, 21, 0),
-      //       showEndTime: DateTime(2023, 1, 6, 21, 30)),
-      //   ShowItem(
-      //       showName: 'Gold Rush The Movie Four',
-      //       showStartTime: DateTime(2023, 1, 6, 21, 30),
-      //       showEndTime: DateTime(2023, 1, 6, 23, 59)),
-      // ]),
+      TvChannel(channelName: 'Discovery+', showItems: [
+        ShowItem(
+            showName: 'Gold',
+            showStartTime: DateTime(2023, 1, 6, 00, 0),
+            showEndTime: DateTime(2023, 1, 6, 00, 30)),
+        ShowItem(
+            showName: 'Food',
+            showStartTime: DateTime(2023, 1, 6, 0, 30),
+            showEndTime: DateTime(2023, 1, 6, 1, 0)),
+        ShowItem(
+            showName: 'Miso',
+            showStartTime: DateTime(2023, 1, 6, 1, 0),
+            showEndTime: DateTime(2023, 1, 6, 2, 30)),
+        ShowItem(
+            showName: 'Race',
+            showStartTime: DateTime(2023, 1, 6, 2, 30),
+            showEndTime: DateTime(2023, 1, 6, 3, 0)),
+        ShowItem(
+            showName: 'Impossible',
+            showStartTime: DateTime(2023, 1, 6, 3, 0),
+            showEndTime: DateTime(2023, 1, 6, 5, 0)),
+        ShowItem(
+            showName: 'BPL',
+            showStartTime: DateTime(2023, 1, 6, 5, 30),
+            showEndTime: DateTime(2023, 1, 6, 7, 0)),
+        ShowItem(
+            showName: 'Contact',
+            showStartTime: DateTime(2023, 1, 6, 7, 0),
+            showEndTime: DateTime(2023, 1, 6, 9, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie',
+            showStartTime: DateTime(2023, 1, 6, 9, 0),
+            showEndTime: DateTime(2023, 1, 6, 12, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie',
+            showStartTime: DateTime(2023, 1, 6, 12, 0),
+            showEndTime: DateTime(2023, 1, 6, 13, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie Two',
+            showStartTime: DateTime(2023, 1, 6, 13, 0),
+            showEndTime: DateTime(2023, 1, 6, 15, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie Three',
+            showStartTime: DateTime(2023, 1, 6, 15, 0),
+            showEndTime: DateTime(2023, 1, 6, 18, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie Three',
+            showStartTime: DateTime(2023, 1, 6, 18, 0),
+            showEndTime: DateTime(2023, 1, 6, 19, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie Three',
+            showStartTime: DateTime(2023, 1, 6, 19, 0),
+            showEndTime: DateTime(2023, 1, 6, 21, 0)),
+        ShowItem(
+            showName: 'Gold Rush The Movie Three',
+            showStartTime: DateTime(2023, 1, 6, 21, 0),
+            showEndTime: DateTime(2023, 1, 6, 21, 30)),
+        ShowItem(
+            showName: 'Gold Rush Five',
+            showStartTime: DateTime(2023, 1, 6, 21, 30),
+            showEndTime: DateTime(2023, 1, 6, 23, 59)),
+      ]),
     ];
   }
 
