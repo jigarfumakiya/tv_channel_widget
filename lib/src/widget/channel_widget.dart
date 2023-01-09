@@ -5,13 +5,27 @@ import 'package:intl/intl.dart';
 import 'package:tv_channel_widget/src/model/tv_channle.dart';
 import 'package:tv_channel_widget/src/utils/utils.dart';
 
+/// A callback function that takes in a `BuildContext` and an `int` index and returns a `Widget`.
 typedef ItemBuilder = Widget Function(BuildContext context, int index);
+
+/// A callback function that takes in a `BuildContext` and a `ShowItem` object and returns a `Widget`.
 typedef ShowBuilder = Widget Function(BuildContext context, ShowItem show);
 
 /// Renders a Channel widget with there shows.
 class ChannelWidget extends StatefulWidget {
-  /// [channelShows] determines how the [ShowList] will look like,
-  /// It will make sure that all show will in particular order
+  /// Creates a new `ChannelWidget`.
+  ///
+  /// The [channelShows] parameter determines the appearance of the [ShowList]. It ensures that all shows
+  /// are displayed in a particular order.
+  /// The [headerBuilder] parameter specifies a widget to display for each header item.
+  /// The [showsBuilder] parameter specifies a widget to display for each show item.
+  /// The [showTime] parameter determines whether to show the time above the widget. Defaults to `false`.
+  /// The [moveToCurrentTime] parameter determines whether to move the widget to the current date and time. Defaults to `false`.
+  /// The [headerWidth] parameter specifies the width of the header. Defaults to `150.0`.
+  /// The [itemHeight] parameter specifies the height of each item. Defaults to `150.0`.
+  /// The [verticalPadding] parameter specifies the vertical padding. Defaults to `10`.
+  /// The [timerRowHeight] parameter specifies the height of the timer row. Defaults to `20`.
+  /// The [disableHorizontalScroll] parameter determines the scroll behavior for horizontal scrolling. Defaults to `false`.
   ChannelWidget({
     Key? key,
     required this.channelShows,
@@ -19,13 +33,14 @@ class ChannelWidget extends StatefulWidget {
     required this.showsBuilder,
     this.showTime = false,
     this.moveToCurrentTime = false,
-    this.headerWidth = 150,
+    this.headerWidth = 150.0,
+    this.itemHeight = 100.0,
     this.verticalPadding = 10,
     this.timerRowHeight = 20,
     this.disableHorizontalScroll = false,
   }) : super(key: key) {
     // Assert that there are no conflicting show times in the channelShows list
-    final conflictingShows = getConflictingShows(channelShows);
+    final conflictingShows = _getConflictingShows(channelShows);
     assert(conflictingShows.isEmpty,
         'Conflicting show times found: $conflictingShows');
   }
@@ -58,6 +73,10 @@ class ChannelWidget extends StatefulWidget {
   /// Defaults to 20 px
   final double timerRowHeight;
 
+  /// Determines height for timer row
+  /// Defaults to 150 px
+  final double itemHeight;
+
   /// Determines scroll behavior for horizontal scroll
   /// Defaults to false
   final bool disableHorizontalScroll;
@@ -72,9 +91,8 @@ class ChannelWidget extends StatefulWidget {
   /// another show item.
   ///
   /// Returns a list of all show items that have conflicting start and end times.
-  List<ShowItem> getConflictingShows(List<TvChannel> showsList) {
+  List<ShowItem> _getConflictingShows(List<TvChannel> showsList) {
     List<ShowItem> conflictingShows = [];
-
     // Create a map to store the show times for each channel
     Map<TvChannel, List<ShowItem>> channelShowMap = {};
     for (var channel in showsList) {
@@ -145,12 +163,14 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                 return Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: widget.verticalPadding),
-                  child: widget.headerBuilder(
-                      context, widget.showTime ? (index - 1) : index),
+                  child: SizedBox(
+                    height: widget.itemHeight,
+                    child: widget.headerBuilder(
+                        context, widget.showTime ? (index - 1) : index),
+                  ),
                 );
               }),
         ),
-        const SizedBox(width: 10),
         Flexible(
           fit: FlexFit.loose,
           child: CustomScrollView(
@@ -185,10 +205,11 @@ class _ChannelWidgetState extends State<ChannelWidget> {
 
   List<Widget> buildShows(List<ShowItem> shows) {
     return List.generate(shows.length, (index) {
-      final mins = getShowsLengthInMin(shows[index]);
+      final mins = _getShowsLengthInMin(shows[index]);
       return Padding(
         padding: EdgeInsets.symmetric(vertical: widget.verticalPadding),
         child: SizedBox(
+          height: widget.itemHeight,
           width: getCalculatedWidth(mins),
           child: widget.showsBuilder(context, shows[index]),
         ),
@@ -200,7 +221,7 @@ class _ChannelWidgetState extends State<ChannelWidget> {
     return SizedBox(
       height: widget.timerRowHeight,
       child: Row(
-        children: getTimerList()
+        children: _getTimeSlots()
             .map((e) => SizedBox(
                   width: getCalculatedWidth(30),
                   child: Text(e),
@@ -220,20 +241,28 @@ class _ChannelWidgetState extends State<ChannelWidget> {
   }
 
   /// This function finds the show length in minutes
-  int getShowsLengthInMin(ShowItem showItem) {
+  int _getShowsLengthInMin(ShowItem showItem) {
     return Utils.getDateDiffInMin(showItem.showStartTime, showItem.showEndTime);
   }
 
-  List<String> getTimerList() {
+  /// Returns a list of time slots in 30-minute increments starting from midnight of the current day.
+  ///
+  /// The time slots are formatted as strings in the "HH:mm" format. The returned list contains 48 time slots,
+  /// representing 2 full days worth of 30-minute intervals.
+  List<String> _getTimeSlots() {
     final timeFormat = DateFormat('HH:mm');
-    final timerList = <String>[];
-    timerList.add('00:00');
-    var todayDate = DateTime(2023, 1, 6, 00, 0);
-    for (int i = 0; i < 46; i++) {
-      todayDate = todayDate.add(const Duration(minutes: 30));
-      timerList.add(timeFormat.format(todayDate));
+    final timeSlots = <String>[];
+    var time = DateTime.now().subtract(Duration(
+        hours: DateTime.now().hour,
+        minutes: DateTime.now().minute,
+        seconds: DateTime.now().second));
+
+    // Add 48 time slots to the list (2 full days worth of 30-minute slots)
+    for (var i = 1; i < 48; i++) {
+      timeSlots.add(timeFormat.format(time));
+      time = time.add(const Duration(minutes: 30));
     }
-    return timerList;
+    return timeSlots;
   }
 
   /// This function determines the current position of widget
