@@ -22,4 +22,9 @@ class ShowItem {
     required this.showStartTime,
     required this.showEndTime,
   });
+
+  @override
+  String toString() {
+    return ' ShowName :$showName StartTime :$showStartTime EndTime :$showEndTime';
+  }
 }
