@@ -11,7 +11,7 @@ ChannelWidget is an elegant and easy-to-use package for displaying a list of TV 
 
 ## Installation 🔧
 
-Add `tv_widget` as a dependency in your pubspec.yaml file ```yaml
+Add `tv_widget` as a dependency in your pubspec.yaml file
 ```yaml
 dependencies:
   tv_channel_widget: '^0.0.1'
@@ -124,8 +124,8 @@ For further usage refer the [`example`](https://github.com/jigarfumakiya/tv_chan
 ### ChannelWidget Widget
 | Dart attribute          | Datatype            | Description                                                                                                       |              Default Value              |
 | :---------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------------- | :-------------------------------------: |
-| channelShows                   | List\<TvChannel\> |  List of channal with there shows.                                                                                |                  (required)                   |
-| channelBuilder                   | Widget |  widget to display for each channal item. |(required)                   |
+| channelShows                   | List\<TvChannel\> |  List of channel with there shows.                                                                                |                  (required)                   |
+| channelBuilder                   | Widget |  widget to display for each channel item. |(required)                   |
 | showsBuilder                   | Widget |  widget to display for each show item. |(required)                   |
 | showTime                   | bool |  whether to show the time above the widget. |true                   |
 | moveToCurrentTime                   | bool |  determines whether to move the widget to the current date and time. |true                   |
@@ -133,7 +133,7 @@ For further usage refer the [`example`](https://github.com/jigarfumakiya/tv_chan
 | headerWidth                   | double |  determines whether to move the widget to the current date and time. |150
 | itemHeight                   | double |  determines height of channel and shows item. |100
 | timerRowHeight                   | double |  determines height of timer. |10
-| verticalPadding                   | double | vertical padding to channal and shows item |20
+| verticalPadding                   | double | vertical padding to channel and shows item |20
 
 
 For help on editing package code, view the [flutter documentation](https://flutter.io/developing-packages/).

@@ -186,58 +186,53 @@ class _ChannelWidgetState extends State<ChannelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: widget.channelWidth,
-          child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.showTime
-                  ? (widget.channelShows.length + 1)
-                  : widget.channelShows.length,
-              itemBuilder: (context, index) {
-                if (index == 0 && widget.showTime) {
-                  return SizedBox(
-                    height: widget.timerRowHeight,
-                    width: widget.channelWidth,
+    return SingleChildScrollView(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: widget.channelWidth,
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: widget.showTime
+                    ? (widget.channelShows.length + 1)
+                    : widget.channelShows.length,
+                itemBuilder: (context, index) {
+                  if (index == 0 && widget.showTime) {
+                    return SizedBox(
+                      height: widget.timerRowHeight,
+                      width: widget.channelWidth,
+                    );
+                  }
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: widget.verticalPadding),
+                    child: SizedBox(
+                      height: widget.itemHeight,
+                      child: widget.channelBuilder(
+                          context, widget.showTime ? (index - 1) : index),
+                    ),
                   );
-                }
-                return Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: widget.verticalPadding),
-                  child: SizedBox(
-                    height: widget.itemHeight,
-                    child: widget.channelBuilder(
-                        context, widget.showTime ? (index - 1) : index),
-                  ),
-                );
-              }),
-        ),
-        Flexible(
-          fit: FlexFit.loose,
-          child: CustomScrollView(
-            scrollDirection: Axis.horizontal,
-            controller: _scrollController,
-            physics: widget.disableHorizontalScroll
-                ? const NeverScrollableScrollPhysics()
-                : const ClampingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                  child: Column(
+                }),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              child: Column(
                 children: [
                   if (widget.showTime) buildTimerRow(),
                   ...widget.channelShows
                       .map((channel) => buildChannelRows(channel))
                       .toList(growable: false),
                 ],
-              ))
-            ],
+              ),
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 
@@ -250,12 +245,12 @@ class _ChannelWidgetState extends State<ChannelWidget> {
 
   List<Widget> buildShows(List<ShowItem> shows) {
     return List.generate(shows.length, (index) {
-      final mins = _getShowsLengthInMin(shows[index]);
+      final showLengthInMin = _getShowsLengthInMin(shows[index]);
       return Padding(
         padding: EdgeInsets.symmetric(vertical: widget.verticalPadding),
         child: SizedBox(
           height: widget.itemHeight,
-          width: getCalculatedWidth(mins),
+          width: getCalculatedWidth(showLengthInMin),
           child: widget.showsBuilder(context, shows[index]),
         ),
       );
