@@ -150,7 +150,7 @@ For help on editing package code, view the [flutter documentation](https://flutt
 
 If you encounter any problems feel free to open an [issue](https://github.com/jigarfumakiya/tv_channel_widget/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/jigarfumakiya/tv_channel_widget/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
-## Example project and blog for better understanding 🚀
+[comment]: <> (## Example project and blog for better understanding 🚀)
 
 [comment]: <> (<a href="https://medium.com/@sharmaprateek196/how-to-create-seat-booking-layout-in-flutter-33cff82b3edc">Read my article with example</a>)
 
