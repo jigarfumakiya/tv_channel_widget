@@ -1,3 +1,52 @@
+<div align="center"><img src="https://github.com/jigarfumakiya/tv_channel_widget/blob/master/display/header.png?raw=true"/></div>
+<br/>
+<div align="center">
+  <a href="https://flutter.io">
+    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
+      alt="Platform" />
+  </a>
+
+[comment]: <> (  <a href="https://pub.dev/packages/intro_views_flutter">)
+
+[comment]: <> (    <img src="https://img.shields.io/pub/v/intro_views_flutter.svg")
+
+[comment]: <> (      alt="Pub Package" />)
+
+[comment]: <> (  </a>)
+
+[comment]: <> (  <img src="https://github.com/aagarwal1012/IntroViews-Flutter/actions/workflows/build.yml/badge.svg")
+
+[comment]: <> (      alt="Build Status" />)
+
+[comment]: <> (  <img src="https://github.com/aagarwal1012/IntroViews-Flutter/actions/workflows/tests.yml/badge.svg")
+
+[comment]: <> (      alt="Tests Status" />)
+
+[comment]: <> (    <a href="https://codecov.io/gh/aagarwal1012/IntroViews-Flutter">)
+
+[comment]: <> (    <img src="https://codecov.io/gh/aagarwal1012/IntroViews-Flutter/branch/master/graph/badge.svg")
+
+[comment]: <> (      alt="Codecov Coverage" />)
+
+[comment]: <> (  </a>)
+
+[comment]: <> (  	<a href="https://opensource.org/licenses/MIT">)
+
+[comment]: <> (    <img src="https://img.shields.io/badge/License-MIT-red.svg")
+
+[comment]: <> (      alt="License: MIT" />)
+
+[comment]: <> (  </a>)
+
+[comment]: <> (	<a href="https://www.paypal.me/aagarwal1012">)
+
+[comment]: <> (    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg")
+
+[comment]: <> (      alt="Donate" />)
+
+[comment]: <> (  </a>)
+</div><br>
+
 # ChannelWidget 📺
 ChannelWidget is an elegant and easy-to-use package for displaying a list of TV channels and their corresponding shows. Inspired by popular streaming services like Amazon Prime and Jio Tv, this package is fully developed in dart with ❤️ and supports all platforms. With its customizability and layout options, ChannelWidget gives you complete control over the look and feel of your app.
 
