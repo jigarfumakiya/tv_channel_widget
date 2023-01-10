@@ -43,6 +43,9 @@ class ChannelWidget extends StatefulWidget {
     final conflictingShows = _getConflictingShows(channelShows);
     assert(conflictingShows.isEmpty,
         'Conflicting show times found: $conflictingShows');
+    final missingTimesShows = _findMissingTime(channelShows);
+    assert(missingTimesShows == null,
+        'Missing show times found:  $missingTimesShows');
   }
 
   /// Determines how the [ChannelWidget] should look.
@@ -121,6 +124,48 @@ class ChannelWidget extends StatefulWidget {
       }
     }
     return conflictingShows;
+  }
+
+  String? _findMissingTime(List<TvChannel> showsList) {
+    // List<Duration> missingTime = [];
+
+    // Loop through each TV channel
+    parentLoop:
+    for (TvChannel channel in showsList) {
+      // Get the list of shows for the current TV channel
+      List<ShowItem> shows = channel.showItems;
+
+      // Sort the list of shows by start time
+      shows.sort((a, b) => a.showStartTime.compareTo(b.showStartTime));
+
+      // Get the start and end times of the first show
+      DateTime startTime = shows[0].showStartTime;
+      DateTime endTime = shows[0].showEndTime;
+
+      // Loop through the rest of the shows in the list
+      for (int i = 1; i < shows.length; i++) {
+        // Get the start and end times of the current show
+        DateTime showStartTime = shows[i].showStartTime;
+        DateTime showEndTime = shows[i].showEndTime;
+
+        // If the start time of the current show is after the end time of the previous show,
+        // add the duration between the two times to the missing time list
+        if (showStartTime.isAfter(endTime)) {
+          return '''Missing time found in ${channel.channelName} Channel for ${showStartTime.difference(endTime).inMinutes.abs()} Min
+            Please check your list and verify start and end time of ShowItem.
+            Ex
+            Show one Start time is 8 PM and end time is 9 PM'
+            Show two start time Should start with 9 PM';
+          ''';
+        }
+
+        // Update the start and end times for the next iteration
+        startTime = showStartTime;
+        endTime = showEndTime;
+      }
+    }
+
+    return null;
   }
 }
 

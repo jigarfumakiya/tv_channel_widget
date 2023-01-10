@@ -52,10 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
             showName: 'Gold Rush',
             showStartTime: DateTime(2023, 1, 6, 00, 0),
             showEndTime: DateTime(2023, 1, 6, 1, 0)),
-        ShowItem(
-            showName: 'Food Factory',
-            showStartTime: DateTime(2023, 1, 6, 1, 0),
-            showEndTime: DateTime(2023, 1, 6, 1, 30)),
+        // ShowItem(
+        //     showName: 'Food Factory',
+        //     showStartTime: DateTime(2023, 1, 6, 1, 0),
+        //     showEndTime: DateTime(2023, 1, 6, 1, 30)),
         ShowItem(
             showName: 'Miso Huge',
             showStartTime: DateTime(2023, 1, 6, 1, 30),
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
         showTime: false,
         moveToCurrentTime: true,
         verticalPadding: 10,
-        disableHorizontalScroll: true,
+        disableHorizontalScroll: false,
         headerBuilder: (context, index) {
           final item = showsList[index];
           return Container(
