@@ -1,15 +1,15 @@
-# ChannelWidget
-ChannelWidget is inspired by Amazon Prime / Jio Tv and fully developed in dart with ❤️ from scratch. Supports all the platfrom.
+# ChannelWidget 📺
+ChannelWidget is an elegant and easy-to-use package for displaying a list of TV channels and their corresponding shows. Inspired by popular streaming services like Amazon Prime and Jio Tv, this package is fully developed in dart with ❤️ and supports all platforms. With its customizability and layout options, ChannelWidget gives you complete control over the look and feel of your app.
 
-## Features
-- Displays a list of TV channels and their corresponding shows
-- Customizable appearance using ChannelBuilder and showsBuilder callbacks
-- Option to show the time above the widget
-- Option to move the widget to the current date and time
-- Customizable layout options such as header width, item height, vertical padding, and timer row height
-- Option to disable horizontal scrolling
+## Features 🚀
+- Displays a list of TV channels and their corresponding shows.
+- Fully customizable appearance using ChannelBuilder and ShowBuilder callbacks.
+- Option to show the time above the widget.
+- Option to move the widget to the current date and time.
+- Customizable layout options such as header width, item height, vertical padding, and timer row height.
+- Option to disable horizontal scrolling.
 
-## Installation
+## Installation 🔧
 
 Add `tv_widget` as a dependency in your pubspec.yaml file ```yaml
 ```yaml
@@ -23,8 +23,10 @@ Import Channel Widget :
 ```dart
 import 'package:tv_channel_widget/tv_channel_widget.dart';
 ```
-## Usage
+## Usage 🎬
 #### Create List with `TvChannel` class
+First, create a list of TvChannel objects and their corresponding ShowItems:
+
 ```dart
     showsList = [
     TvChannel(channelName: 'Discovery+', showItems: [
@@ -93,39 +95,19 @@ import 'package:tv_channel_widget/tv_channel_widget.dart';
 ```
 
 #### Create ChannelWidget
+Then, use the ChannelWidget to display the list of channels and shows:
 ```dart
 ChannelWidget(
-        channelShows: showsList,  // <-- Pass list here
-        channelBuilder: (context, index) {  // <-- Customize your channel widget
-          final item = showsList[index];
-          return Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.amber),
-            child: Center(child: Text(item.channelName)),
-          );
-        },
-        showsBuilder: (context, show) {   // <-- Customize your shows widget
-          final channel = show;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
-              ),
-              child: Column(
-                children: <Widget>[
-                  Text(channel.showName),
-                  Text(channel.showStartTime.toString()),
-                  Text(channel.showEndTime.toString()),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+  showsList: showsList,
+  channelBuilder: (channel) {
+    // Customize the appearance of the channel header
+  },
+  showBuilder: (channel, show) {
+    // Customize the appearance of the show items
+  }
+)
 ```
+
 
 
 #### Parameters explained:
@@ -166,3 +148,5 @@ If you encounter any problems feel free to open an [issue](https://github.com/ji
 
 ## Contributors 💻
 Jigar Fumakiya - [Linkedin](https://www.linkedin.com/in/jigar-fumakiya-3080b8b7/) | [Github](https://github.com/jigarfumakiya)
+
+## If you found this package helpful, give it a 👍 on pub.dev and a ⭐ on GitHub Your support is greatly appreciated! 🙏🎉 🙏
