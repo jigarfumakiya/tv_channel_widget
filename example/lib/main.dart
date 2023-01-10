@@ -52,10 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
             showName: 'Gold Rush',
             showStartTime: DateTime(2023, 1, 6, 00, 0),
             showEndTime: DateTime(2023, 1, 6, 1, 0)),
-        // ShowItem(
-        //     showName: 'Food Factory',
-        //     showStartTime: DateTime(2023, 1, 6, 1, 0),
-        //     showEndTime: DateTime(2023, 1, 6, 1, 30)),
+        ShowItem(
+            showName: 'Food Factory',
+            showStartTime: DateTime(2023, 1, 6, 1, 0),
+            showEndTime: DateTime(2023, 1, 6, 1, 30)),
         ShowItem(
             showName: 'Miso Huge',
             showStartTime: DateTime(2023, 1, 6, 1, 30),
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             showEndTime: DateTime(2023, 1, 6, 5, 0)),
         ShowItem(
             showName: 'BPL',
-            showStartTime: DateTime(2023, 1, 6, 5, 30),
+            showStartTime: DateTime(2023, 1, 6, 5, 0),
             showEndTime: DateTime(2023, 1, 6, 7, 0)),
         ShowItem(
             showName: 'Contact',
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             showStartTime: DateTime(2023, 1, 6, 21, 30),
             showEndTime: DateTime(2023, 1, 6, 23, 59)),
       ]),
-      TvChannel(channelName: 'Discovery+', showItems: [
+      TvChannel(channelName: 'Discovery Beta', showItems: [
         ShowItem(
             showName: 'Gold',
             showStartTime: DateTime(2023, 1, 6, 00, 0),
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
             showEndTime: DateTime(2023, 1, 6, 5, 0)),
         ShowItem(
             showName: 'BPL',
-            showStartTime: DateTime(2023, 1, 6, 5, 30),
+            showStartTime: DateTime(2023, 1, 6, 5, 0),
             showEndTime: DateTime(2023, 1, 6, 7, 0)),
         ShowItem(
             showName: 'Contact',
@@ -183,7 +183,6 @@ class _MyHomePageState extends State<MyHomePage> {
         showTime: false,
         moveToCurrentTime: true,
         verticalPadding: 10,
-        disableHorizontalScroll: false,
         headerBuilder: (context, index) {
           final item = showsList[index];
           return Container(
