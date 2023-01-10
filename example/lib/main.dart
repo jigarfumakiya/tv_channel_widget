@@ -180,10 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: const Text('Channel Widget')),
       body: ChannelWidget(
         channelShows: showsList,
-        showTime: false,
-        moveToCurrentTime: true,
-        verticalPadding: 10,
-        headerBuilder: (context, index) {
+        channelBuilder: (context, index) {
           final item = showsList[index];
           return Container(
             decoration: BoxDecoration(

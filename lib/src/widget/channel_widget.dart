@@ -17,11 +17,11 @@ class ChannelWidget extends StatefulWidget {
   ///
   /// The [channelShows] parameter determines the appearance of the [ShowList]. It ensures that all shows
   /// are displayed in a particular order.
-  /// The [headerBuilder] parameter specifies a widget to display for each header item.
+  /// The [channelBuilder] parameter specifies a widget to display for each header item.
   /// The [showsBuilder] parameter specifies a widget to display for each show item.
   /// The [showTime] parameter determines whether to show the time above the widget. Defaults to `false`.
   /// The [moveToCurrentTime] parameter determines whether to move the widget to the current date and time. Defaults to `false`.
-  /// The [headerWidth] parameter specifies the width of the header. Defaults to `150.0`.
+  /// The [channelWidth] parameter specifies the width of the header. Defaults to `150.0`.
   /// The [itemHeight] parameter specifies the height of each item. Defaults to `150.0`.
   /// The [verticalPadding] parameter specifies the vertical padding. Defaults to `10`.
   /// The [timerRowHeight] parameter specifies the height of the timer row. Defaults to `20`.
@@ -29,11 +29,11 @@ class ChannelWidget extends StatefulWidget {
   ChannelWidget({
     Key? key,
     required this.channelShows,
-    required this.headerBuilder,
+    required this.channelBuilder,
     required this.showsBuilder,
     this.showTime = false,
     this.moveToCurrentTime = false,
-    this.headerWidth = 150.0,
+    this.channelWidth = 150.0,
     this.itemHeight = 100.0,
     this.verticalPadding = 10,
     this.timerRowHeight = 20,
@@ -61,10 +61,10 @@ class ChannelWidget extends StatefulWidget {
 
   /// Determines To width of header.
   /// Defaults to 150
-  final double headerWidth;
+  final double channelWidth;
 
   /// Display a widget for header item
-  final ItemBuilder headerBuilder;
+  final ItemBuilder channelBuilder;
 
   /// Display a widget for shows item
   final ShowBuilder showsBuilder;
@@ -191,7 +191,7 @@ class _ChannelWidgetState extends State<ChannelWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          width: widget.headerWidth,
+          width: widget.channelWidth,
           child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -202,7 +202,7 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                 if (index == 0 && widget.showTime) {
                   return SizedBox(
                     height: widget.timerRowHeight,
-                    width: widget.headerWidth,
+                    width: widget.channelWidth,
                   );
                 }
                 return Padding(
@@ -210,7 +210,7 @@ class _ChannelWidgetState extends State<ChannelWidget> {
                       EdgeInsets.symmetric(vertical: widget.verticalPadding),
                   child: SizedBox(
                     height: widget.itemHeight,
-                    child: widget.headerBuilder(
+                    child: widget.channelBuilder(
                         context, widget.showTime ? (index - 1) : index),
                   ),
                 );
