@@ -1,9 +1,9 @@
 # ChannelWidget
-ChannelWidget is inspired by Amzone Prime / Jio Tv and fully developed in dart with ❤️ from scratch. Supports all the platfrom.
+ChannelWidget is inspired by Amazon Prime / Jio Tv and fully developed in dart with ❤️ from scratch. Supports all the platfrom.
 
 ## Features
 - Displays a list of TV channels and their corresponding shows
-- Customizable appearance using headerBuilder and showsBuilder callbacks
+- Customizable appearance using ChannelBuilder and showsBuilder callbacks
 - Option to show the time above the widget
 - Option to move the widget to the current date and time
 - Customizable layout options such as header width, item height, vertical padding, and timer row height
@@ -95,8 +95,8 @@ import 'package:tv_channel_widget/tv_channel_widget.dart';
 #### Create ChannelWidget
 ```dart
 ChannelWidget(
-        channelShows: showsList,
-        channelBuilder: (context, index) {
+        channelShows: showsList,  // <-- Pass list here
+        channelBuilder: (context, index) {  // <-- Customize your channel widget
           final item = showsList[index];
           return Container(
             decoration: BoxDecoration(
@@ -104,7 +104,7 @@ ChannelWidget(
             child: Center(child: Text(item.channelName)),
           );
         },
-        showsBuilder: (context, show) {
+        showsBuilder: (context, show) {   // <-- Customize your shows widget
           final channel = show;
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -133,24 +133,13 @@ ChannelWidget(
 
 * `showsBuilder:` - This is a widget builder forC channel Shows, you can see shows in horizontal view with it's particuler channel.
 
-For further usage refer the [`example`](https://github.com/aagarwal1012/IntroViews-Flutter/tree/master/example/lib) available.
+For further usage refer the [`example`](https://github.com/jigarfumakiya/tv_channel_widget/tree/main/example/lib) available.
 
-**_Note :_** If you added more than four pages in the list then there might be overlapping between `page icons` and `skip button`, so my suggestion is just make the `showSkipButton: false`.
+[comment]: <> (**_Note :_** If you added more than four pages in the list then there might be overlapping between `page icons` and `skip button`, so my suggestion is just make the `showSkipButton: false`.)
 
 # Documentation
 
-### TvChannel Class
-
-| Dart attribute        | Datatype       | Description                                                           |                                          Default Value                                          |
-| :-------------------- | :------------- | :-------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------: |
-| channelName             | String          | Set name of the channel.                                                |                                              Null                                               |
-| showItems        | List<ShowItem>         | List of shows for channel.|                             Null                                               |
-
-
 ### ChannelWidget Widget
-
-### IntroViewFlutter Class
-
 | Dart attribute          | Datatype            | Description                                                                                                       |              Default Value              |
 | :---------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------------- | :-------------------------------------: |
 | channelShows                   | List\<TvChannel\> |  List of channal with there shows.                                                                                |                  (required)                   |
@@ -169,11 +158,11 @@ For help on editing package code, view the [flutter documentation](https://flutt
 
 # Bugs or Requests
 
-If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/IntroViews-Flutter/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/IntroViews-Flutter/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
+If you encounter any problems feel free to open an [issue](https://github.com/jigarfumakiya/tv_channel_widget/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/jigarfumakiya/tv_channel_widget/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
-See [Contributing.md](https://github.com/aagarwal1012/IntroViews-Flutter/blob/master/CONTRIBUTING.md).
 ## Example project and blog for better understanding 🚀
-<a href="https://medium.com/@sharmaprateek196/how-to-create-seat-booking-layout-in-flutter-33cff82b3edc">Read my article with example</a>
+
+[comment]: <> (<a href="https://medium.com/@sharmaprateek196/how-to-create-seat-booking-layout-in-flutter-33cff82b3edc">Read my article with example</a>)
 
 ## Contributors 💻
 Jigar Fumakiya - [Linkedin](https://www.linkedin.com/in/jigar-fumakiya-3080b8b7/) | [Github](https://github.com/jigarfumakiya)
