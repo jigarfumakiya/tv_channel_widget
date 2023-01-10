@@ -1,6 +1,14 @@
 # ChannelWidget 📺
 ChannelWidget is an elegant and easy-to-use package for displaying a list of TV channels and their corresponding shows. Inspired by popular streaming services like Amazon Prime and Jio Tv, this package is fully developed in dart with ❤️ and supports all platforms. With its customizability and layout options, ChannelWidget gives you complete control over the look and feel of your app.
 
+
+
+Without Auto Detect Time             |  With Auto Detect Time
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/11865669/211542776-37ba1122-784f-4575-bbb0-07a8cd312e5d.mp4)  |  ![](https://user-images.githubusercontent.com/11865669/211542838-49ec366c-57fb-4fea-96b2-60deee5010b1.mp4)
+
+
+
 ## Features 🚀
 - Displays a list of TV channels and their corresponding shows.
 - Fully customizable appearance using ChannelBuilder and ShowBuilder callbacks.
