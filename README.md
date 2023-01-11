@@ -323,3 +323,7 @@ Jigar Fumakiya - [Linkedin](https://www.linkedin.com/in/jigar-fumakiya-3080b8b7/
 | [Github](https://github.com/jigarfumakiya)
 
 ## If you found this package helpful, give it a 👍 on pub.dev and a ⭐ on GitHub Your support is greatly appreciated! 🙏🎉 🙏
+
+# License
+
+**ChannelWidget** is licensed under `MIT license`.
